@@ -250,11 +250,12 @@ input::placeholder {
     height: 35px;
     margin-top: -5px;
 }
+/*
 .list-group-item {
     cursor:pointer;
 }
 
-/*** Explore page  */
+/*** Explore page  *
 #explore {
   display: flex;
   justify-content: center;
@@ -327,3 +328,4 @@ input::placeholder {
 .explore__user-column:active {
   opacity: 0.9;
 }
+*/

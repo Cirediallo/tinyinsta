@@ -3,11 +3,12 @@
  */
 package fr.univnantes.atal.model;
 
-//import java.util.ArrayList;
-/*import java.util.Map;
+/*import java.util.ArrayList;
+import java.util.Map;
 import java.util.Optional;
+*/
 import java.util.*;
-
+/*
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.FetchOptions;
@@ -25,7 +26,7 @@ import com.google.appengine.api.datastore.*;
  *
  */
 public class Profile {
-	/*
+	
 	public String googleId; //Google User id
 	public String pseudo; //user pseudo
 	public String givenName; //user given name
@@ -33,7 +34,7 @@ public class Profile {
 	public String imageUrl; //user profile image url
 	public String email; //user email
 	public Date created_at;
-	
+	/*
 	/**
 	 * Get single user profile by specific field
 	 * @param field

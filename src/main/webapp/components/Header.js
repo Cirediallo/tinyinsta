@@ -5,12 +5,43 @@
 //const m = require("mithril");
 
 const Header = {
+	
+	    oncreate: (vnode) => {
+
+        //add event to trigger input file
+        let postIconImage = document.querySelector(".post-icon img");
+        postIconImage.addEventListener('click', function () {
+          let input = document.querySelector('.post-icon input[type="file"]');
+          input.click();
+        })
+
+        //add selected image to the current dom
+        let inputImageFile = vnode.dom.querySelector("#postimage");
+        inputImageFile.addEventListener('change', function () {
+            let output = document.getElementById("postoutput");
+            let file = inputImageFile.files[0];
+            let reader  = new FileReader();
+
+            reader.addEventListener("load", function () {
+                output.innerHTML = `<img src=${reader.result} class="d-block w-100" alt="New postt">`;
+                //make post component visible
+                let postElement = document.getElementById('newPost');
+                postElement.className = 'card col-12';
+            }, false);
+
+            if(file) {
+                reader.readAsDataURL(file);
+            }
+        });
+    },
+	
+	/////
 
     view: () => {
         return m('header', {}, [
             m("nav", {class:"navbar navbar-expand-sm navbar-light bg-light"}, [
                 m("a", {class: "navbar-brand", href: "#"}, [
-                    m("img", {src:"./images/instagram-icon-sm.png"})
+                    m("img", {src:"../images/instagram-icon-sm.png"})
                 ]),
                 m("button", {
                                 class:"navbar-toggler",
@@ -36,23 +67,26 @@ const Header = {
                         m("li", {class:"nav-item active"}, [
                             m("a", {class:"nav-link", href:"#"}, [
                                 m("span", {class:"sr-only"}, "(Current)"),
-                                m("img", {src:"./images/svg/home.svg"})
+                                m("img", {src:"../images/svg/home.svg"})
                             ])
                         ]),
                         m("li", {class:"nav-item"}, [
                             m("a", {class:"nav-link", href:"#"}, [
-                                m("img", {src:"./images/svg/share.svg"})
+                                m("img", {src:"../images/svg/share.svg"})
                             ])
                         ]),
                         m("li", {class:"nav-item"}, [
                             m("a", {class:"nav-link", href:"#"}, [
-                                m("img", {src:"./images/svg/compass.svg"})
+                                m("img", {src:"../images/svg/compass.svg"})
                             ])
                         ]),
                         m("li", {class:"nav-item"}, [
                             m("a", {class:"nav-link", href:"#"}, [
-                                m("img", {src:"./images/svg/no-like.svg"})
+                                m("img", {src:"../images/svg/no-like.svg"})
                             ])
+                        ]),
+						m("li", {class:"nav-item post-icon", title: "Publish a photo"}, [
+                            m(InitPost)
                         ]),
                     ])
                 ])

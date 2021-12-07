@@ -8,7 +8,7 @@ const SimpleArticle = {
             m("div", {class:"card-header"}, [
                 m("img", {class:"image-profile", src:"https://via.placeholder.com/150", alt:"Photo profile"}),
                 m("div", {class: "details"}, [
-                    m("h5", {class: "name"}, "Mamadou Saliou DIALLO"),
+                    m("h5", {class: "name"}, "DIALLO Ciré"),
                     m("p", {class: "location"}, "Nantes")
                 ]),
                 m("a", {class:"dot", href:"#"}, [
@@ -50,7 +50,7 @@ const SimpleArticle = {
             ]),
             m("div", {class:"card-footer"}, [
                 m("form", {class:"inline-form", action:""}, [
-                    m("input", {type:"text", placeholder:"Ajouter un commentaire"}),
+                    m("input", {type:"text", placeholder:"Add a comment"}),
                     m("button", {class:"submit-comment", type:"submit"}, "Publier")
                 ]),
                 m("div", {class:"comments"}, [
@@ -59,7 +59,7 @@ const SimpleArticle = {
                             m("img", {src:"https://via.placeholder.com/150", alt:"Photo profile"})
                         ]),
                         m("div", {class:"col comment-content"}, [
-                            m("span", {}, "Mamadou Saliou DIALLO"),
+                            m("span", {}, "DIALLO Mamadou"),
                             m("p", {}, "Lorem ipsum dolor sit, amet consectetur adipisicing elit.\
                                         Officia voluptatem vero non fuga minima quo neque suscipit! Sed molestias")
                         ])
@@ -69,7 +69,7 @@ const SimpleArticle = {
                             m("img", {src:"https://via.placeholder.com/150", alt:"Photo profile"})
                         ]),
                         m("div", {class:"col comment-content"}, [
-                            m("span", {}, "Mamadou Saliou DIALLO"),
+                            m("span", {}, "DIALLO Ibrahima"),
                             m("p", {}, "Lorem ipsum dolor sit, amet consectetur adipisicing elit.\
                                         Officia voluptatem vero non fuga minima quo neque suscipit! Sed molestias")
                         ])
