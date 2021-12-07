@@ -1,8 +1,11 @@
 /**
- * DIALLO Ciré
+ * 
  */
+//const m = require("mithril");
+
+//export const ArticleWithSlide = {
 const ArticleWithSlide = {
-    view: () => {
+	    view: () => {
         return m("article", {class:"card col-12"}, [
             m("div", {class:"card-header"}, [
                 m("img", {class:"image-profile", src:"https://via.placeholder.com/150", alt:"Photo profile"}),
@@ -77,7 +80,7 @@ const ArticleWithSlide = {
                             m("img", {src:"https://via.placeholder.com/150", alt:"Photo profile"})
                         ]),
                         m("div", {class:"col comment-content"}, [
-                            m("span", {}, "Diallo Ciré"),
+                            m("span", {}, "DIALLO Aissatou"),
                             m("p", {}, "Lorem ipsum dolor sit, amet consectetur adipisicing elit.\
                                         Officia voluptatem vero non fuga minima quo neque suscipit! Sed molestias")
                         ])
@@ -87,7 +90,7 @@ const ArticleWithSlide = {
                             m("img", {src:"https://via.placeholder.com/150", alt:"Photo profile"})
                         ]),
                         m("div", {class:"col comment-content"}, [
-                            m("span", {}, "DIALLO Ciré"),
+                            m("span", {}, "DIALLO Mariama"),
                             m("p", {}, "Lorem ipsum dolor sit, amet consectetur adipisicing elit.\
                                         Officia voluptatem vero non fuga minima quo neque suscipit! Sed molestias")
                         ])
