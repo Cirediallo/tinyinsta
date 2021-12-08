@@ -8,6 +8,13 @@ import java.util.Map;
 import java.util.Optional;
 */
 import java.util.*;
+
+import com.google.appengine.api.datastore.*;
+
+import java.util.Date;
+import java.util.Optional;
+
+import static com.google.appengine.api.datastore.KeyFactory.createKey;
 /*
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -40,25 +47,24 @@ public class Profile {
 	 * @param field
 	 * @param value
 	 * @return 
-	 ***
-	private static Entity find(String field, Object value) {
-		Query q = new Query(Profile.class.getCanonicalName()).setFilter(
-																	new Query.FilterPredicate(field, Query.FilterOperator.EQUAL, value)
-																);
-		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-		PreparedQueryOptional<T>dQuery = datastore.prepare(q);
-		
-		Optional<Entity> result = preparedQuery.asQueryResultList(FetchOptions.Builder.withDefaults()).stream().findFirst();
-		
-		return result.orElse(null);
-	}
+	 */
+    private static Entity find(String field, Object value) {
+        Query q = new Query(Profile.class.getCanonicalName()).setFilter(
+                new Query.FilterPredicate(field, Query.FilterOperator.EQUAL, value));
+
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        PreparedQuery preparedQuery = datastore.prepare(q);
+        Entity result = preparedQuery.asSingleEntity();
+
+        return result;
+    }
 	
 	/**
 	 * Get user profile by id
 	 * @param id
 	 * 
 	 * @return 
-	 ***
+	 */
 	public static Entity findById(String id) { return find("googleId", id);}
 	
 	/**
@@ -66,13 +72,14 @@ public class Profile {
 	 * @param key
 	 * 
 	 * @return 
-	 ***
+	 */
 	public static Entity findByKey(String key) {
 		Key encodedKey = KeyFactory.createKey(Profile.class.getCanonicalName(), key);
 		
 		return find("__key__", encodedKey);
 	}
 	
+	/*
 	public static Entity follow(String followed, String follower) {
 		Entity profile = Profile.findById(followed);
 		Map properties = profile.getProperties();

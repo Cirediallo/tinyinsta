@@ -6,7 +6,8 @@ var currentUser = {};
 
 function loadCurrentUser(profile) {
     currentUser = {
-        'id': profile.getId(),
+        //'id': profile.getId(),
+		'googleId': profile.getId(),
 		'pseudo': profile.getId(),
 		'token': gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token,
         'name': profile.getName(),
@@ -17,11 +18,12 @@ function loadCurrentUser(profile) {
     }
 	    m.request({
           method: "GET",
-          url: API_BASE_URL + "/retrieveProfile/:userId",
+          url: API_BASE_URL + "/retrieveProfileById/:userId",
           params: {
-            'userId': currentUser.id
+            'userId': currentUser.googleId
           }
     })
+	/*
     .then(function(result) {
         //create profile when not registred
         if(result == null){
@@ -32,8 +34,21 @@ function loadCurrentUser(profile) {
             })
         }
     })
+	*/
+	.then(response => {
+		currentUser.key = response.key.name;
+	})
     .catch(function(e) {
-        console.log(e.message)
+        //console.log(e.message)
+        //Create user when not exist
+        m.request({
+            method: "POST",
+            url: API_BASE_URL + "/createprofile?access_token=" + encodeURIComponent(currentUser.token),
+            params: currentUser
+        })
+        .then(response => {
+            currentUser.key = response.key.name;
+        })
      })
 }
 
