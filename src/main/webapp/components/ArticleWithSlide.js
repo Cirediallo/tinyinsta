@@ -1,9 +1,6 @@
 /**
- * 
+ * DIALLO Ciré
  */
-//const m = require("mithril");
-
-//export const ArticleWithSlide = {
 const ArticleWithSlide = {
 	    view: () => {
         return m("article", {class:"card col-12"}, [
@@ -33,11 +30,11 @@ const ArticleWithSlide = {
                     ]),
                     m("a", {class:"carousel-control-prev", href:"#newsCarousel", role:"button", "data-slide":"prev"}, [
                         m("span", {class:"carousel-control-prev-icon", "aria-hidden":"true"}),
-                        m("span", {class:"sr-only"}, "Précédent")
+                        m("span", {class:"sr-only"}, "Precedent")
                     ]),
                     m("a", {class:"carousel-control-next", href:"#newsCarousel", role:"button", "data-slide":"next"}, [
                         m("span", {class:"carousel-control-next-icon", "aria-hidden":"true"}),
-                        m("span", {class:"sr-only"}, "Suivant")
+                        m("span", {class:"sr-only"}, "Next")
                     ])
                 ]),
                 m("ul", {class: "actions"}, [
@@ -71,7 +68,7 @@ const ArticleWithSlide = {
             ]),
             m("div", {class:"card-footer"}, [
                 m("form", {class:"inline-form", action:""}, [
-                    m("input", {type:"text", placeholder:"Ajouter un commentaire"}),
+                    m("input", {type:"text", placeholder:"Add a comment"}),
                     m("button", {class:"submit-comment", type:"submit"}, "Publier")
                 ]),
                 m("div", {class:"comments"}, [

@@ -18,7 +18,7 @@ function post(){
 
     if(isEditPost){
         form.append('postKey', currentPostKey)
-         //on post creation
+         
             m.request({
                       method: "PUT",
                       url: "/createpost",

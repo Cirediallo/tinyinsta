@@ -38,9 +38,10 @@ function convertKindToProfile(kind) {
 }
 
 function monthToFrenchString(month) {
-    const months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet',
-                   
-                 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+    const months = [
+					'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet',
+                 	'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+					];
     return months[month];
 }
 
@@ -129,7 +130,7 @@ function SimpleArticle(data) {
                     ]),
                     m("div", {class: "like"}, [
                         m("b", {}, post.likeCounter),
-                        "  J'aime"
+                        "Like"
                     ]),
                     m("div", {class:"date"}, post.displayedDate )
                 ]),
