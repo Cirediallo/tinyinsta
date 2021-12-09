@@ -14,8 +14,8 @@ Projet du cours `Web & Cloud` qui consiste en la réalisation du site Instagram 
 + Ne pas suivre un utilisateur  
 
 # Adresse de l'application  
-[TinyInstagram](tinyinsta-333420.oa.r.appspot.com).  
-[TinyInstagram](tinyinsta-333420.appsport.com).  
+[TinyInstagram](https://tinyinsta-333420.oa.r.appspot.com).  
+[TinyInstagram](https://tinyinsta-333420.appsport.com).  
 
 # Tester en local  
 `mvn clean package appengine:run`  
