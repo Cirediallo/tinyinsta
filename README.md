@@ -27,4 +27,5 @@ Projet du cours `Web & Cloud` qui consiste en la réalisation du site Instagram 
 Des erreurs de packages ont été rencontrées lors de la mise en place de l'application et dans le test et dand le deployement entre autres:  
 + MojoException    
 + App engine plugins  
++ API d'exploration pas pu faire  
  
