@@ -26,6 +26,13 @@ const Header = {
                 output.innerHTML = `<img src=${reader.result} class="d-block w-100" alt="New postt">`;
                 //make post component visible
                 let postElement = document.getElementById('newPost');
+				
+				postElement.querySelector(".card-header h6").innerHTML = "New publication";
+                if(!isEditPost){
+                    postElement.querySelector("#postDescription").value = "";
+                    postElement.querySelector(".card-footer button").innerHTML = "Publish";
+                }
+
                 postElement.className = 'card col-12';
             }, false);
 
@@ -58,21 +65,23 @@ const Header = {
                     m("input", {
                                     class:"form-control mr-sm-2",
                                     type:"search",
-                                    placeholder:"Rechercher",
-                                    "aria-label":"Search"
+                                    placeholder:"Research",
+                                    "aria-label":"Search",
+                                    onfocus: ()=>{m.route.set('/explore')}
                                 })
                 ]),
                 m("div", {class:"collapse navbar-collapse m-auto", id:"mainNavbar"},[
                     m("ul", {class:"navbar-nav mr-auto"}, [
                         m("li", {class:"nav-item active"}, [
-                            m("a", {class:"nav-link", href:"#"}, [
+                            m("a", {class:"nav-link", href:"#!/home"}, [
                                 m("span", {class:"sr-only"}, "(Current)"),
                                 m("img", {src:"../images/svg/home.svg"})
                             ])
                         ]),
                         m("li", {class:"nav-item"}, [
-                            m("a", {class:"nav-link", href:"#"}, [
-                                m("img", {src:"../images/svg/share.svg"})
+                        	m("a", {class:"nav-link", href:"#!/explore", title:"Explorer, Chercher"
+                                   }, [
+                                m("img", {src:"./images/svg/compass.svg"})
                             ])
                         ]),
                         m("li", {class:"nav-item"}, [

@@ -15,18 +15,19 @@ import java.util.Date;
 import java.util.Optional;
 
 import static com.google.appengine.api.datastore.KeyFactory.createKey;
-/*
+import com.google.appengine.api.users.User;
+
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
-import com.google.cloud.storage.Acl.Entity;
+//import com.google.cloud.storage.Acl.Entity;
 import static com.google.appengine.api.datastore.KeyFactory.createKey;
 import com.google.appengine.api.users.*;
 import com.google.appengine.api.datastore.*;
-*/
+
 
 /**
  * @author DIALLO Ciré
@@ -54,9 +55,11 @@ public class Profile {
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery preparedQuery = datastore.prepare(q);
-        Entity result = preparedQuery.asSingleEntity();
+        
+        Optional<Entity> result = preparedQuery.asQueryResultList(FetchOptions.Builder.withDefaults()).stream().findFirst();
+        
 
-        return result;
+        return result.orElse(null);
     }
 	
 	/**
@@ -79,7 +82,7 @@ public class Profile {
 		return find("__key__", encodedKey);
 	}
 	
-	/*
+	
 	public static Entity follow(String followed, String follower) {
 		Entity profile = Profile.findById(followed);
 		Map properties = profile.getProperties();
@@ -94,7 +97,7 @@ public class Profile {
 		
 		datastore.put(profile);
 		
-		transcation.commit();
+		transaction.commit();
 		
 		return profile;
 	}
@@ -110,7 +113,7 @@ public class Profile {
 			Long counter = (Long) properties.get("subscriberCounter");
 			profile.setProperty("subscriberCounter", counter - 1);
 			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-			Transcation transaction = datastore.beginTransaction();
+			Transaction transaction = datastore.beginTransaction();
 			
 			datastore.put(profile);
 			
@@ -118,5 +121,5 @@ public class Profile {
 		}
 		return profile;
 	}
-	*/
+	
 }

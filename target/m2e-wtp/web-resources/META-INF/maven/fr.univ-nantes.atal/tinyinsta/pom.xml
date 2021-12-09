@@ -24,6 +24,8 @@
         <maven.compiler.target>1.8</maven.compiler.target>
             
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
+        
+        <endpoints.project.id>tinyinsta-333420</endpoints.project.id> <!-- to generate the API -->
           
     </properties>
       
@@ -50,7 +52,19 @@
     </dependencyManagement>
       
     <dependencies>
-            
+    	<dependency>
+    		<groupId>com.google.appengine.tools</groupId>
+    		<artifactId>appengine-gcs-client</artifactId>
+    		<version>0.8</version>
+    	</dependency>
+    	<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.8.9</version>
+		    <scope>provided</scope>
+		</dependency>
+		            
         <!-- Compile/runtime dependencies -->
             
         <dependency>

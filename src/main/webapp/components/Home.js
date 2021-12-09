@@ -12,7 +12,9 @@ const Home = {
     view: () => {
         return m('div', {class:"container"}, [
             m(Header, {}, "Hello"),
-            m(Timeline)
+            m(Timeline),
+			m(DialogMenu),
+			m(MessageDialog)
         ]);
     }
 } 

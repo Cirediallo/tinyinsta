@@ -255,7 +255,7 @@ input::placeholder {
     cursor:pointer;
 }
 
-/*** Explore page  *
+/*** Explore page  */
 #explore {
   display: flex;
   justify-content: center;
@@ -328,4 +328,4 @@ input::placeholder {
 .explore__user-column:active {
   opacity: 0.9;
 }
-*/
+

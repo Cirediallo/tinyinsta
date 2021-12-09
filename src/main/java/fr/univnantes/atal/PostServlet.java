@@ -7,6 +7,7 @@ package fr.univnantes.atal;
  * @author dev
  *
  */
+
 import fr.univnantes.atal.model.Post;
 import fr.univnantes.atal.model.Profile;
 import fr.univnantes.atal.utilitaires.Util;
@@ -17,23 +18,26 @@ import java.time.*;
 import java.util.*;
 
 
+import com.fasterxml.jackson.databind.*;
 import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.images.*;
-
-import com.google.appengine.tools.*;
 
 import com.google.appengine.tools.cloudstorage.GcsFileOptions;
 import com.google.appengine.tools.cloudstorage.GcsFilename;
 import com.google.appengine.tools.cloudstorage.GcsService;
-import com.google.appengine.tools.cloudstorage.GcsServiceFactory;
+//import com.google.appengine.tools.cloudstorage.GcsServideFactory;
+import com.google.appengine.tools.cloudstorage.*;
 import com.google.appengine.tools.cloudstorage.RetryParams;
 //import endpoints.repackaged.com.google.gson.JsonObject;
-import endpoints.repackaged.com.google.gson.*;
+import com.google.gson.JsonObject;
+
+import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
+
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -56,7 +60,7 @@ public class PostServlet extends HttpServlet{
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response){
-        ServletFileUpload upload = new  ServletFileUpload();
+        ServletFileUpload upload = new ServletFileUpload();
         try {
             FileItemIterator iterator = upload.getItemIterator(request);
 
@@ -89,6 +93,70 @@ public class PostServlet extends HttpServlet{
 
                 String finalFilename = BUCKETPATH + "/" + filename;
                 Entity post = savePost(finalFilename, description, url, author.getKey());
+                successResponse(response, url, post);
+            }
+
+        } catch (FileUploadException | IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    
+    @Override
+    public void doPut(HttpServletRequest request, HttpServletResponse response){
+        ServletFileUpload upload = new  ServletFileUpload();
+        try {
+            FileItemIterator iterator = upload.getItemIterator(request);
+
+            //Get image file
+            FileItemStream imageObjectStream = iterator.next();
+            String imageExtension = "";
+            String contentType = imageObjectStream.getContentType();
+            if(contentType != null)
+                imageExtension = imageExtension(contentType);
+
+            InputStream imageFileStream =imageObjectStream.openStream();
+            byte[] imageBytes = IOUtils.toByteArray(imageFileStream);
+            boolean isImageUpdated = true;
+            String imageValue = new String(imageBytes);
+            if(imageValue.equals("nochange")){
+                isImageUpdated = false;
+            }
+            //Get description field
+            InputStream descriptionStream = iterator.next().openStream();
+            byte[] descriptionBytes = IOUtils.toByteArray(descriptionStream);
+            String description = new String(descriptionBytes);
+
+            //Get post key
+            InputStream postKeyStream = iterator.next().openStream();
+            byte[] userIdBytes = IOUtils.toByteArray(postKeyStream);
+            String postKey = new String(userIdBytes);
+
+            Entity post = Post.findByKey(postKey);
+            if(post == null) {
+                userNotFound(response);
+            }else {
+                // Write the image to Cloud Storage
+                String url = (String)post.getProperties().get("imageUrl");
+                if(isImageUpdated){
+                    String filename = Util.normalize(LocalDateTime.now().toString()) + "." + imageExtension;
+                    saveImageToBucket(imageBytes, filename, imageObjectStream.getContentType());
+
+                    url = getImageUrl(filename);
+
+                    String finalFilename = BUCKETPATH + "/" + filename;
+                    post.setProperty("imageName", filename);
+                    post.setProperty("imageUrl", url);
+                }
+                post.setProperty("description", description);
+
+                DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+                Transaction txn = datastore.beginTransaction();
+
+                datastore.put(post);
+
+                txn.commit();
+
                 successResponse(response, url, post);
             }
 
@@ -195,3 +263,4 @@ public class PostServlet extends HttpServlet{
         return entity;
     }
 }
+

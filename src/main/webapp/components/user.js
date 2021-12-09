@@ -53,11 +53,13 @@ function follow(event) {
     }
 
 }
-function user(data){
+
+function userComponent(data){
     return {
         data: data,
         view: () => {
             let user = convertKindToProfile(data);
+            
             let alreadyFollow = false;
             console.log("user to draw", user)
             console.log("user subscribers", user.subscribers)
@@ -76,10 +78,10 @@ function user(data){
                            ])
                        ]),
                        m('div', {class: "explore__user-column"}, [
-                           m('button', {"data-user":user.key, "data-follow":alreadyFollow?"true":"false", onclick: follow},(alreadyFollow?"Do not follow": "Follow"))
+                          
+                           m('button', {"data-user":user.key, "data-follow":alreadyFollow?"true":"false", onclick: follow},(alreadyFollow?"To not follow": "Follow"))
                        ])
                    ])
         }
     }
-
 }

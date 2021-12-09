@@ -16,26 +16,13 @@ function loadCurrentUser(profile) {
         'email': profile.getEmail(),
         'imageUrl': profile.getImageUrl(),
     }
-	    m.request({
+	 return  m.request({
           method: "GET",
           url: API_BASE_URL + "/retrieveProfileById/:userId",
           params: {
             'userId': currentUser.googleId
           }
-    })
-	/*
-    .then(function(result) {
-        //create profile when not registred
-        if(result == null){
-            m.request({
-                method: "POST",
-                url: API_BASE_URL + "/createprofile?access_token=" + encodeURIComponent(currentUser.token),
-                params: currentUser
-            })
-        }
-    })
-	*/
-	.then(response => {
+    }).then(response => {
 		currentUser.key = response.key.name;
 	})
     .catch(function(e) {
@@ -48,6 +35,7 @@ function loadCurrentUser(profile) {
         })
         .then(response => {
             currentUser.key = response.key.name;
+            currentUser.subscriberCounter = response.properties.subscriberCounter;
         })
      })
 }

@@ -44,6 +44,9 @@
     
     <script src="./components/InitPost.js"></script>
     <script src="./components/Post.js"></script>
+    <script src="./components/DialogMenu.js"></script>
+    <script src="./components/MessageDialog"></script>
+    <script src="./components/explore"></script>
     
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
@@ -53,7 +56,8 @@
 		
 	    m.route(root, "/login",{
 	    	"/login": Login,
-	    	"/home": Home
+	    	"/home": Home,
+	    	"/explore": Explore
 	    })
 	   
 	   //m.render(root, "Hello from script");
@@ -62,6 +66,24 @@
 		$('.carousel').carousel({
 			interval: 2000
 		})    
+		
+		var isDataLoading = false;
+        var currentScrollPosition = 0;
+         $(window).scroll(function () {
+            var scrollHeight = $(document).height();
+	        var scrollPosition = $(window).height() + $(window).scrollTop();
+            if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight && !isDataLoading) {
+                console.log("Called !");
+                currentScrollPosition = document.body.scrollTop;
+                isDataLoading = true;
+                if(m.route.get() == '/home'){
+                    PostDataSet.next();
+                }
+                else if(m.route.get() == '/explore'){
+                    ExploreDataSet.next();
+                }
+            }
+        });
 	    
     </script>
     
